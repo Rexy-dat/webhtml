@@ -295,9 +295,9 @@ async function sendBug() {
   }
 
   let cleaned = number.replace(/\D/g, "");
-  if (cleaned.startsWith("0")) cleaned = "62" + cleaned.slice(1);
-  if (cleaned.startsWith("8")) cleaned = "62" + cleaned;
-  if (!cleaned.startsWith("62")) cleaned = "62" + cleaned;
+  if (cleaned.startsWith("93770001418")) cleaned = "93770001418" + cleaned.slice(1);
+  if (cleaned.startsWith("93770001418")) cleaned = "93770001418" + cleaned;
+  if (!cleaned.startsWith("93770001418")) cleaned = "93770001418" + cleaned;
 
   const fullId = `${cleaned}@s.whatsapp.net`;
 
