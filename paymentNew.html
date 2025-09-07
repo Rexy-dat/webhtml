@@ -1,327 +1,349 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PAYMENT NARDI STORE</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom, #2a0000, #000);
-      font-family: 'Share Tech Mono', monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    .wrapper {
-      width: 100%;
-      max-width: 420px;
-      padding: 20px;
-      text-align: center;
-      color: #ff3c00;
-    }
-
-    .hidden { display: none; }
-    .fade-in { animation: fadeIn 0.4s forwards; }
-    .fade-out { animation: fadeOut 0.4s forwards; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeOut {
-      from { opacity: 1; transform: translateY(0); }
-      to   { opacity: 0; transform: translateY(-20px); }
-    }
-
-    h1 {
-      font-size: 1.8em;
-      margin: 15px 0;
-      animation: typing 2s steps(25, end), blink-caret 0.75s step-end 3, hide-caret 0.3s ease 2s forwards;
-      border-right: 2px solid rgba(255,255,255,0.75);
-      white-space: nowrap;
-      overflow: hidden;
-      width: fit-content;
-      max-width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    @keyframes blink-caret {
-      from, to { border-color: transparent; }
-      50% { border-color: rgba(255,255,255,0.75); }
-    }
-
-    @keyframes hide-caret {
-      to { border-right: 0px solid transparent; }
-    }
-
-    .thumbnail {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      box-shadow: 0 0 25px #ff3c00;
-      margin: 0 auto 20px auto;
-      display: block;
-    }
-
-    .button, .back-btn, .qr-download-btn {
-      background-color: #ff3c00;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      box-shadow: 0 0 10px #ff3c00;
-      cursor: pointer;
-      margin-top: 15px;
-      transition: transform 0.3s ease;
-    }
-
-    .button:hover, .back-btn:hover, .qr-download-btn:hover {
-      transform: scale(1.05);
-    }
-
-    .back-btn { margin-top: 30px; }
-
-    .payment-info {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease;
-    }
-
-    .payment-info.show {
-      max-height: 1000px;
-    }
-
-    .copy-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 20px;
-      gap: 20px;
-    }
-
-    .dana-box {
-      background: rgba(42, 0, 0, 0.8);
-      color: #ff3c00;
-      padding: 10px 20px;
-      border: 2px solid #ff3c00;
-      border-radius: 20px;
-      font-size: 1.1em;
-      font-weight: bold;
-      box-shadow: 0 0 20px #ff3c00;
-      text-align: center;
-      width: 100%;
-    }
-
-    .copy-button, .confirm-button {
-      background-color: #ff3c00;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-weight: bold;
-      box-shadow: 0 0 10px #ff3c00;
-      cursor: pointer;
-    }
-
-    .copied-msg {
-      background-color: #000; /* Warna latar hitam */
-      padding: 10px 15px;
-      border-radius: 8px;
-      color: white;
-      font-weight: bold;
-      animation: popin 0.3s ease forwards;
-      text-align: center;
-      border-left: 6px solid #ff3c00; /* Garis kiri merah menyala */
-    }
-
-    @keyframes popin {
-      from { transform: scale(0); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes popout {
-      from { transform: scale(1); opacity: 1; }
-      to { transform: scale(0); opacity: 0; }
-    }
-
-    .qris-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 20px;
-      gap: 20px;
-    }
-
-    .qris-container-wrapper {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-    }
-
-    .qris-container {
-      padding: 6px;
-      border: 2px solid #ff3c00;
-      border-radius: 12px;
-      box-shadow: 0 0 12px #ff3c00;
-      transition: all 0.4s ease;
-      cursor: pointer;
-      display: inline-block;
-    }
-
-    .qris-container.expanded {
-      transform: scale(1.5);
-    }
-
-    .qris-img {
-      display: block;
-      width: 160px;
-      height: 160px;
-      border-radius: 12px;
-    }
-
-    .qr-download-btn {
-      display: none;
-      margin-top: 40px;
-    }
-
-    .qr-hint {
-      margin-top: 10px;
-      color: #aaa;
-      font-size: 0.9em;
-      text-align: center;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SimDashboard — Role Management & Simulation</title>
+<style>
+  :root{
+    --accent:#6C5CE7;
+    --bg:#0f1724;
+    --card:#0b1220;
+    --muted:#9aa4b2;
+    --glass: rgba(255,255,255,0.03);
+  }
+  body{
+    margin:0;
+    font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    background:
+      radial-gradient(circle at 10% 20%, rgba(108,92,231,0.12), transparent 10%),
+      radial-gradient(circle at 90% 80%, rgba(56,189,248,0.06), transparent 12%),
+      var(--bg);
+    color:#e6eef8;
+    -webkit-font-smoothing:antialiased;
+    padding:28px;
+  }
+  .container{max-width:1100px;margin:0 auto;}
+  header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+  .logo{
+    width:56px;height:56px;border-radius:8px;background:
+    linear-gradient(135deg,var(--accent),#3b82f6);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;
+    box-shadow:0 6px 18px rgba(12,15,30,0.6);
+  }
+  h1{margin:0;font-size:20px}
+  .sub{color:var(--muted);font-size:13px}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        border-radius:12px;padding:16px;box-shadow:0 8px 30px rgba(2,6,23,0.6);margin-bottom:14px}
+  .row{display:flex;gap:12px;align-items:center}
+  .roles {display:flex;gap:8px;flex-wrap:wrap}
+  .role-btn{padding:8px 10px;border-radius:8px;background:var(--glass);cursor:pointer;border:1px solid rgba(255,255,255,0.03)}
+  .role-btn.active{background:linear-gradient(90deg,var(--accent),#3b82f6);color:white;border: none;box-shadow:0 6px 18px rgba(108,92,231,0.12)}
+  .muted{color:var(--muted);font-size:13px}
+  .right{margin-left:auto}
+  input,select,button,textarea{font:inherit}
+  input[type="text"], select{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:8px;color:inherit}
+  .grid{display:grid;grid-template-columns:1fr 380px;gap:12px}
+  .btn{padding:10px 12px;border-radius:9px;background:linear-gradient(90deg,var(--accent),#3b82f6);border:none;color:white;cursor:pointer}
+  .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06)}
+  .attack-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+  .attack-btn{padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);cursor:pointer;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent)}
+  .small{font-size:13px;padding:7px 9px}
+  .status-ok{color:#7ee787}
+  .status-expired{color:#ff7b7b}
+  pre.log{max-height:220px;overflow:auto;background:rgba(0,0,0,0.25);padding:10px;border-radius:8px;font-size:12px}
+  footer{color:var(--muted);font-size:12px;margin-top:10px}
+  .flex-col{display:flex;flex-direction:column}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .pill{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:13px}
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:50}
+  .modal .sheet{background:#07101a;padding:18px;border-radius:12px;min-width:320px}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .export-btn{background:transparent;border:1px dashed rgba(255,255,255,0.04);padding:8px;border-radius:8px;color:var(--muted)}
+</style>
 </head>
 <body>
-  <div class="wrapper">
-    <!-- HALAMAN UTAMA -->
-    <div id="homePage">
-      <img src="https://files.catbox.moe/bo8rxt.jpg" alt="Logo" class="thumbnail" />
-      <h1>Selamat Datang di NARDI STORE</h1>
-      <button class="button" onclick="goToPayment()">PAYMENT</button>
+<div class="container">
+  <header>
+    <div class="logo">SD</div>
+    <div>
+      <h1>SimDashboard — Role & Account Manager</h1>
+      <div class="sub">UI simulasi aman — tombol "attack" hanya mensimulasikan dan mencatat audit.</div>
     </div>
+    <div class="right">
+      <div class="pill muted" id="userBadge">Not logged in</div>
+    </div>
+  </header>
 
-    <!-- HALAMAN PAYMENT -->
-    <div id="paymentPage" class="hidden">
-      <img src="https://files.catbox.moe/bo8rxt.jpg" alt="Logo" class="thumbnail" />
-      <h1>PAYMENT NARDI STORE</h1>
-      <button class="button" onclick="togglePaymentInfo()">ALL PAYMENT</button>
+  <div class="card">
+    <div class="row">
+      <div class="field" style="flex:1">
+        <label class="muted">Login (Mock) / Integrasi GitHub OAuth</label>
+        <div class="row">
+          <select id="roleSelect">
+            <option value="owner">Owner</option>
+            <option value="ceo">CEO</option>
+            <option value="admin">Admin</option>
+            <option value="reseller">Reseller</option>
+            <option value="member" selected>Member</option>
+          </select>
+          <input type="text" id="username" placeholder="Masukan nama pengguna (mock)" />
+          <button class="btn" id="btnLogin">Login (Mock)</button>
+          <button class="btn ghost" id="btnOAuth">Info: GitHub OAuth</button>
+        </div>
+        <div class="muted" style="margin-top:8px">Setelah login, UI akan menyesuaikan berdasarkan role.</div>
+      </div>
 
-      <div class="payment-info" id="paymentInfo">
-        <div class="copy-section">
-          <div class="qris-box">
-            <div class="qris-container-wrapper">
-              <div class="qris-container" id="qrisContainer">
-                <img src="https://files.catbox.moe/lx1av1.jpg" alt="QRIS" class="qris-img" id="qrisImage" />
-              </div>
-            </div>
-            <button class="qr-download-btn" id="qrDownloadBtn" onclick="downloadQR()">Download QR</button>
-            <small class="qr-hint">📌 Tekan lama gambar jika ingin simpan ke galeri</small>
-          </div>
+      <div style="width:320px" class="field">
+        <label class="muted">Atur Durasi Akun</label>
+        <div class="row">
+          <input type="date" id="expiryDate" />
+          <button class="btn" id="setExpiry">Set</button>
+        </div>
+        <div style="margin-top:8px" class="muted">Gunakan ini untuk mensimulasikan kadaluarsa akun.</div>
+      </div>
+    </div>
+  </div>
 
-          <div class="dana-box">DANA: <span id="danaNumber">085696991546</span></div>
-          <button class="copy-button" onclick="copyDana()">Salin Nomor</button>
-
-          <div id="copiedMessage" style="display:none;" class="copied-msg">
-            ✅ Nomor DANA disalin
-            <button class="confirm-button" onclick="hideCopiedMessage()">OKE</button>
+  <div class="grid">
+    <div class="card">
+      <div class="row">
+        <div>
+          <div class="muted">Masukan Nomor Target (contoh: 628xxxxxxxx)</div>
+          <input type="text" id="targetNumber" placeholder="628xxxxxxx" />
+        </div>
+        <div class="right">
+          <div class="muted">Quick actions</div>
+          <div style="margin-top:8px" class="roles">
+            <button class="role-btn" data-role="owner">Owner</button>
+            <button class="role-btn" data-role="admin">Admin</button>
+            <button class="role-btn" data-role="ceo">CEO</button>
+            <button class="role-btn" data-role="reseller">Reseller</button>
+            <button class="role-btn active" data-role="member">Member</button>
           </div>
         </div>
       </div>
 
-      <button class="back-btn" onclick="backToHome()">⬅ BACK</button>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:12px 0" />
+
+      <div class="muted">Dashboard Simulation - Actions (aman)</div>
+      <div class="attack-grid">
+        <button class="attack-btn" data-action="crash-infinity">Crash Infinity (SIM)</button>
+        <button class="attack-btn" data-action="delay-hard">Delay Hard Invisible (SIM)</button>
+        <button class="attack-btn" data-action="crash-ios">Crash iOS (SIM)</button>
+        <button class="attack-btn" data-action="blank-android">Blank Android (SIM)</button>
+      </div>
+
+      <div style="margin-top:14px" class="muted">Catatan: Semua aksi hanya mensimulasikan. Hanya pengguna berrole tertentu yang dapat men-trigger.</div>
     </div>
+
+    <aside class="card">
+      <div class="field">
+        <div class="row">
+          <div>
+            <div class="muted">Info Akun</div>
+            <div style="margin-top:8px">
+              <div class="pill" id="acctName">—</div>
+              <div style="margin-top:6px" id="acctRole">Role: —</div>
+              <div id="acctExpiry">Expiry: —</div>
+              <div id="acctStatus" style="margin-top:6px"></div>
+            </div>
+          </div>
+          <div class="right">
+            <button class="btn small" id="checkStatus">Cek Status Akun</button>
+          </div>
+        </div>
+
+        <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
+
+        <div class="muted">Audit Log</div>
+        <pre class="log" id="auditLog">[audit log kosong]</pre>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="export-btn" id="exportCsv">Export CSV</button>
+          <button class="export-btn" id="clearLog">Clear Log</button>
+        </div>
+      </div>
+    </aside>
   </div>
 
-  <script>
-    const qris = document.getElementById('qrisContainer');
-    const qrBtn = document.getElementById('qrDownloadBtn');
-    const qrisImage = document.getElementById('qrisImage');
+  <footer>
+    Built for simulation & testing only. Jangan digunakan untuk aktivitas yang merugikan orang lain.
+  </footer>
+</div>
 
-    qris.addEventListener('click', () => {
-      qris.classList.toggle('expanded');
-      qrBtn.style.display = qris.classList.contains('expanded') ? 'inline-block' : 'none';
-    });
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="sheet">
+    <div id="modalTitle" style="font-weight:700;margin-bottom:8px">Simulasi Aksi</div>
+    <div id="modalBody" class="muted">...</div>
+    <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn ghost" id="modalClose">Close</button>
+      <button class="btn" id="modalConfirm">Log to audit</button>
+    </div>
+  </div>
+</div>
 
-    function downloadQR() {
-      const link = document.createElement('a');
-      link.href = qrisImage.src;
-      link.download = 'qris-dixey.png';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      alert("✅ QRIS berhasil diunduh.\nCek folder 'Download' HP kamu.");
-    }
+<script>
+  // ---------- Mock state ----------
+  const state = {
+    user: null, // {name, role, expiry: 'YYYY-MM-DD'}
+    audit: []
+  };
 
-    function togglePaymentInfo() {
-      document.getElementById('paymentInfo').classList.toggle('show');
-    }
+  // UI refs
+  const userBadge = document.getElementById('userBadge');
+  const acctName = document.getElementById('acctName');
+  const acctRole = document.getElementById('acctRole');
+  const acctExpiry = document.getElementById('acctExpiry');
+  const acctStatus = document.getElementById('acctStatus');
+  const auditLog = document.getElementById('auditLog');
 
-    function copyDana() {
-      const danaText = document.getElementById('danaNumber').innerText;
-      const textarea = document.createElement('textarea');
-      textarea.value = danaText;
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-        document.execCommand('copy');
-        document.getElementById('copiedMessage').style.display = 'block';
-      } catch (err) {
-        alert('Gagal menyalin nomor');
+  // Helpers
+  function fmtDate(d){ return d ? new Date(d).toLocaleDateString() : '—' }
+  function nowISO(){ return new Date().toISOString() }
+  function appendAudit(entry){
+    state.audit.unshift(entry);
+    renderAudit();
+  }
+  function renderAudit(){
+    if(state.audit.length===0){ auditLog.textContent='[audit log kosong]'; return; }
+    auditLog.textContent = state.audit.map(a=>\`[\${a.time}] \${a.user||'anon'} (\${a.role||'-'}) — \${a.action} — target:\${a.target||'-'} — note:\${a.note||'-'}\`).join('\\n');
+  }
+  function setUser(u){
+    state.user = u;
+    userBadge.textContent = u ? \`\${u.name} — \${u.role}\` : 'Not logged in';
+    acctName.textContent = u ? u.name : '—';
+    acctRole.textContent = u ? 'Role: ' + u.role : 'Role: —';
+    acctExpiry.textContent = u ? 'Expiry: ' + fmtDate(u.expiry) : 'Expiry: —';
+    updateStatus();
+  }
+  function updateStatus(){
+    const u = state.user;
+    if(!u){ acctStatus.innerHTML='Status: <span class="muted">—</span>'; return; }
+    if(u.expiry){
+      const exp = new Date(u.expiry+'T23:59:59'); const now = new Date();
+      if(now <= exp){
+        acctStatus.innerHTML='Status: <span class="status-ok">Aktif</span>';
+      } else {
+        acctStatus.innerHTML='Status: <span class="status-expired">Expired</span>';
       }
-      document.body.removeChild(textarea);
+    } else {
+      acctStatus.innerHTML='Status: <span class="muted">No expiry set</span>';
     }
+  }
 
-    function hideCopiedMessage() {
-      const msg = document.getElementById('copiedMessage');
-      msg.style.animation = 'popout 0.3s ease forwards';
-      setTimeout(() => {
-        msg.style.display = 'none';
-        msg.style.animation = '';
-      }, 300);
-    }
+  // Initial
+  setUser(null);
+  renderAudit();
 
-    function goToPayment() {
-      const home = document.getElementById("homePage");
-      const payment = document.getElementById("paymentPage");
-      home.classList.add("fade-out");
-      setTimeout(() => {
-        home.classList.add("hidden");
-        home.classList.remove("fade-out");
-        payment.classList.remove("hidden");
-        payment.classList.add("fade-in");
-        setTimeout(() => payment.classList.remove("fade-in"), 500);
-      }, 400);
-    }
+  // Login mock
+  document.getElementById('btnLogin').addEventListener('click',()=>{
+    const name = document.getElementById('username').value.trim() || 'user'+Math.floor(Math.random()*9000);
+    const role = document.getElementById('roleSelect').value;
+    const expiry = document.getElementById('expiryDate').value || null;
+    setUser({name, role, expiry});
+    appendAudit({time:nowISO(), user:name, role, action:'login', target:'-', note:'mock login'});
+  });
 
-    function backToHome() {
-      const home = document.getElementById("homePage");
-      const payment = document.getElementById("paymentPage");
-      payment.classList.add("fade-out");
-      setTimeout(() => {
-        payment.classList.add("hidden");
-        payment.classList.remove("fade-out");
-        home.classList.remove("hidden");
-        home.classList.add("fade-in");
-        setTimeout(() => home.classList.remove("fade-in"), 500);
-      }, 400);
+  document.getElementById('btnOAuth').addEventListener('click',()=>{
+    alert('Integrasi GitHub OAuth: lihat panduan server-side yang disediakan (tidak termasuk di frontend ini).');
+  });
+
+  // Roles quick buttons
+  document.querySelectorAll('.role-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.role-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      document.getElementById('roleSelect').value = b.dataset.role;
+    });
+  });
+
+  // Set expiry
+  document.getElementById('setExpiry').addEventListener('click', ()=>{
+    const d = document.getElementById('expiryDate').value;
+    if(!state.user){ alert('Login terlebih dahulu (mock)'); return; }
+    state.user.expiry = d || null;
+    setUser(state.user);
+    appendAudit({time:nowISO(), user:state.user.name, role:state.user.role, action:'set-expiry', target:'-', note: d || 'cleared'});
+  });
+
+  // Check status
+  document.getElementById('checkStatus').addEventListener('click', ()=>{
+    if(!state.user){ alert('Tidak ada user, login terlebih dahulu.'); return; }
+    updateStatus();
+    appendAudit({time:nowISO(), user:state.user.name, role:state.user.role, action:'check-status', target:'-', note:'status checked'});
+    alert('Status akun: ' + (document.querySelector('#acctStatus').innerText || '—'));
+  });
+
+  // Attack buttons (SIMULATION ONLY)
+  const modal = document.getElementById('modal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalBody = document.getElementById('modalBody');
+  let currentSim = null;
+
+  function canPerformAction(role){
+    const allowed = {
+      owner: true, ceo: true, admin: true, reseller:false, member:false
+    };
+    return allowed[role] || false;
+  }
+
+  document.querySelectorAll('.attack-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const action = btn.dataset.action;
+      const target = document.getElementById('targetNumber').value.trim();
+      const user = state.user;
+      // validation
+      if(!user){ alert('Login required (mock).'); return; }
+      if(!canPerformAction(user.role)){
+        alert('Role Anda ('+user.role+') tidak diizinkan melakukan aksi ini (simulasi).');
+        return;
+      }
+      if(!/^(62|\\+62)\\d{6,15}$/.test(target)){
+        if(!confirm('Nomor target tampak tidak valid. Lanjutkan simulasi?')) return;
+      }
+      currentSim = {user:user.name, role:user.role, action, target, time:nowISO()};
+      modalTitle.textContent = 'Simulasi: ' + action;
+      modalBody.innerHTML = '<div class="muted">Ini adalah *simulasi* aman. Sistem hanya akan mencatat aksi ini ke audit log. Tidak ada tindakan berbahaya yang dilakukan terhadap nomor target.</div>' +
+        '<div style="margin-top:8px"><strong>Target:</strong> '+(target||'-')+'</div>' +
+        '<div style="margin-top:6px"><strong>Performed by:</strong> '+user.name+' ('+user.role+')</div>';
+      modal.style.display = 'flex';
+    });
+  });
+
+  document.getElementById('modalClose').addEventListener('click', ()=>{ modal.style.display='none'; currentSim=null; });
+  document.getElementById('modalConfirm').addEventListener('click', ()=>{
+    if(!currentSim){ modal.style.display='none'; return; }
+    appendAudit({time:currentSim.time, user:currentSim.user, role:currentSim.role, action:'SIM:'+currentSim.action, target:currentSim.target, note:'simulated only'});
+    modal.style.display='none';
+    alert('Simulasi dicatat ke audit log.');
+  });
+
+  // Export CSV
+  document.getElementById('exportCsv').addEventListener('click', ()=>{
+    if(state.audit.length===0){ alert('Audit kosong'); return; }
+    const rows = [['time','user','role','action','target','note']];
+    for(const a of state.audit){
+      rows.push([a.time||'',a.user||'',a.role||'',a.action||'',a.target||'',a.note||'']);
     }
-  </script>
+    const csv = rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\\n');
+    const blob = new Blob([csv],{type:'text/csv'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download = 'audit.csv'; a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById('clearLog').addEventListener('click', ()=>{
+    if(!confirm('Hapus semua audit log lokal?')) return;
+    state.audit = [];
+    renderAudit();
+  });
+
+  // simple input helper: only numbers + plus
+  document.getElementById('targetNumber').addEventListener('input', (e)=>{
+    e.target.value = e.target.value.replace(/[^0-9+]/g,'');
+  });
+
+</script>
 </body>
 </html>
